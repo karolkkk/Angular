@@ -1,20 +1,32 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container-fluid" style="text-align:center">
+ 
+  <router-outlet></router-outlet>
+ <app-test></app-test>
+
+ <h2>Add post about teacher</h2>
+ <form [formGroup]="postForm" (ngSubmit)="onSubmit()" >
+   <div class="form-group">
+     <label>Teacher</label>
+     <input [class.is-invalid]="postForm.get('teacher').invalid &&
+                                postForm.get('teacher').touched" formControlName="teacher" type="text" class="form-control">
+
+    <div *ngIf="postForm.get('teacher').invalid && postForm.get('teacher').touched">
+      <small *ngIf="postForm.get('teacher').errors?.required" class="text-danger">Teacher's name is required</small>
+      <small *ngIf="postForm.get('teacher').errors?.minlength" class="text-danger">Teacher's name must be at least 3 characters long</small>
+    </div>
+   </div>
+
+   <div class="form-group">
+    <label>Tell us something</label>
+    <input [class.is-invalid]="postForm.get('tell_us_sth').invalid &&
+                              postForm.get('tell_us_sth').touched" formControlName="tell_us_sth" type="text" class="form-control">
+    <small [class.d-none]="postForm.get('tell_us_sth').valid ||
+                                  postForm.get('tell_us_sth').untouched" class="text-danger">You have to tell us something about this teacher</small>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+ </form>
+ {{postForm.value | json}}
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
